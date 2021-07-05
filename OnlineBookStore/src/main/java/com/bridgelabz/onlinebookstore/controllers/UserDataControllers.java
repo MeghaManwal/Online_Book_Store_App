@@ -42,14 +42,14 @@ public class UserDataControllers {
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping("/login")
-    public ResponseEntity login(@Valid @RequestBody UserLoginDTO userLoginDTO, HttpServletResponse httpServletResponse) {
+    public ResponseEntity userlogin(@Valid @RequestBody UserLoginDTO userLoginDTO, HttpServletResponse httpServletResponse) {
         String userLogin = userservice.userLogin(userLoginDTO);
         httpServletResponse.setHeader("Authorization", userLogin);
         return new ResponseEntity("LOGIN SUCCESSFUL", HttpStatus.OK);
     }
 	
 	@PostMapping("/reset/link")
-	public ResponseEntity<ResponseDTO> getResetLink(@RequestParam(value = "emailID") String emailID) throws MessagingException {
+	public ResponseEntity<ResponseDTO> sendResetLink(@RequestParam(value = "emailID") String emailID) throws MessagingException {
 		String link = userservice.sendPasswordResetLink(emailID);
 		ResponseDTO respdto = new ResponseDTO("Reset Link Sent successfully", link);
 		return new ResponseEntity<ResponseDTO>(respdto, HttpStatus.OK);
