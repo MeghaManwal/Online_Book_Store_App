@@ -14,7 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig {
+public class SwaggerConfiguration {
 
 	@Bean
 	public Docket productApi() {
@@ -23,7 +23,7 @@ public class SwaggerConfig {
 	}
 	
 	private ApiInfo getApiInfo() {
-        Contact contact = new Contact("CFP-051", "https://bridgelabz.com/", "yennefer9713@gmail.com");
+        Contact contact = new Contact("CFP-051", "https://bridgelabz.com/", "bridgelabz.nium@gmail.com");
         return new ApiInfoBuilder().title("Online BookStore backend API ")
                 .description("Online Book Store Api for managing the book store")
                 .version("1.0")

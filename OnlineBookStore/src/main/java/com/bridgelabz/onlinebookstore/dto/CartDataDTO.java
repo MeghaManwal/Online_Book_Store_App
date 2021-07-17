@@ -1,15 +1,29 @@
 package com.bridgelabz.onlinebookstore.dto;
 
+import java.util.UUID;
+
 import javax.validation.constraints.Min;
 
 import lombok.Data;
 
 public @Data class CartDataDTO {
 	
-	@Min(value = 0)
-	private int quantity;
+	private UUID bookId;
 	
-	@Min(value = 0)
-	private double totalPrice;
+	@Min(value = 1, message = "Please Enter Valid Quantity")
+	private Integer quantity;
+	
+	@Min(value = 1, message = "Please Enter Valid Quantity")
+	private Double totalprice;
 
+	public CartDataDTO(UUID bookId,  Integer quantity,  Double totalprice) {
+		this.bookId = bookId;
+		this.quantity = quantity;
+		this.totalprice = totalprice;
+	}
+
+	public CartDataDTO() {
+		super();
+	}
+			
 }

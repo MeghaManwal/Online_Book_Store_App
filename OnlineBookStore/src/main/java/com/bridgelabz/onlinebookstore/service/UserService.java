@@ -15,7 +15,7 @@ import com.bridgelabz.onlinebookstore.exception.UserDataException;
 import com.bridgelabz.onlinebookstore.model.UserData;
 import com.bridgelabz.onlinebookstore.repository.UserDataRepository;
 import com.bridgelabz.onlinebookstore.utils.EmailService;
-import com.bridgelabz.onlinebookstore.utils.Token;
+import com.bridgelabz.onlinebookstore.utils.TokenUtils;
 
 @Service
 public class UserService implements IUserService{
@@ -24,12 +24,18 @@ public class UserService implements IUserService{
 	private UserDataRepository userdatarepo;
 	
 	@Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+        private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	Token jwtToken = new Token();
+	TokenUtils jwtToken = new TokenUtils();
 	
 	@Autowired
-    private EmailService emailService;
+        private EmailService emailService;
+	
+	@Autowired
+	ICartService cartservice;
+	
+	@Autowired
+	IWishlistService wishlistservice;
 
 	@Override
 	public UserData createNewUser(UserDataDTO userdto) {
@@ -56,13 +62,14 @@ public class UserService implements IUserService{
 	}
 
 	@Override
-	public void verifyEmail(String tokenId) {
+	public void verifyEmail(String tokenId, UserData userdata) {
 		UUID token = jwtToken.decodeJWT(tokenId);
 		Optional<UserData> userId= userdatarepo.findById(token);
 		if(!userId.isPresent()) {
 			throw new BookStoreException(BookStoreException.ExceptionTypes.USER_NOT_FOUND); 
 		}
-		userId.get().isVerified=true;
+		userId.get().isVerified=cartservice.setUserId(userdata);
+		userId.get().isVerified=wishlistservice.setUserId(userdata);
 		userdatarepo.save(userId.get());
 	}
 
@@ -78,21 +85,22 @@ public class UserService implements IUserService{
 	                throw new UserDataException(UserDataException.ExceptionTypes.PASSWORD_NOT_FOUND);
 	            }
 	            String tokenString = jwtToken.generateLoginToken(userEmail.get());
+	            System.out.println("Login Token:"+tokenString);
 	            return tokenString;
 	        }
 	        throw  new UserDataException(UserDataException.ExceptionTypes.EMAIL_INVALID);
 	}
 	
 	@Override
-    public String sendPasswordResetLink(String email) throws MessagingException {
-        UserData userdata = userdatarepo.findByEmailID(email)
+        public String sendPasswordResetLink(String email) throws MessagingException {
+                  UserData userdata = userdatarepo.findByEmailID(email)
         		            .orElseThrow(() -> new UserDataException(UserDataException.ExceptionTypes.EMAIL_NOT_FOUND));
-        String token = jwtToken.generateVerificationtoken(userdata);
-        String urlToken = "Link provided to RESET your password \n"
-                           +"http://localhost:8080/user/reset/password/" 
+                  String token = jwtToken.generateVerificationtoken(userdata);
+                  String urlToken = "Link provided to RESET your password \n"
+                                    +"http://localhost:8080/user/reset/password/" 
         		           +token;
-        emailService.sendMail(urlToken, "To RESET Password", userdata.emailID);
-        return "The link to RESET Password is sent";
+                  emailService.sendMail(urlToken, "To RESET Password", userdata.emailID);
+                  return "The link to RESET Password is sent";
     }
 
 	@Override
@@ -103,7 +111,7 @@ public class UserService implements IUserService{
 		String encodePassword = bCryptPasswordEncoder.encode(password);
 		userdata.password=encodePassword;
 		userdatarepo.save(userdata);
-        return "Password is Successfully Reset";
+                return "Password is Successfully Reset";
 	}
 }
 	 

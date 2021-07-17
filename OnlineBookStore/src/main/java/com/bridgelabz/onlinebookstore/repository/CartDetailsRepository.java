@@ -10,6 +10,8 @@ import com.bridgelabz.onlinebookstore.model.CartDetails;
 import com.bridgelabz.onlinebookstore.model.UserData;
 
 @Repository
-public interface UserDataRepository extends JpaRepository<UserData, UUID> {
-	Optional<UserData> findByEmailID(String emailId);	
+public interface CartDetailsRepository extends JpaRepository<CartDetails, UUID> {
+
+	Optional<CartDetails> findByUserData(UserData userdata);
+	//Optional<CartDetails> findByUserId(UUID UserId);
 }

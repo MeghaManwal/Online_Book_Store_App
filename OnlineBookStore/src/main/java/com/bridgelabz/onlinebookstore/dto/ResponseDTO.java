@@ -3,7 +3,6 @@ package com.bridgelabz.onlinebookstore.dto;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-
 @RequiredArgsConstructor
 public @Data class ResponseDTO {
 

@@ -1,6 +1,5 @@
 package com.bridgelabz.onlinebookstore.utils;
 
-
 import java.util.Date;
 import java.util.UUID;
 
@@ -12,13 +11,14 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-public class Token {
+
+public class TokenUtils {
 
 	SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 	public final String TOKEN_SECRET = "sd5745FAHFW";
 	
 	public String generateVerificationToken(UUID userId) {	
-		long currentTime = System.currentTimeMillis();
+	long currentTime = System.currentTimeMillis();
         System.out.println("generate token id:   " + userId);
         return Jwts.builder()
                 .setId(String.valueOf(userId))
@@ -29,7 +29,7 @@ public class Token {
 	}
 	
 	public String generateVerificationtoken(UserData userdata) {	
-		long currentTime = System.currentTimeMillis();
+	long currentTime = System.currentTimeMillis();
         System.out.println("generate token id:   " + userdata.getUserId());
         return Jwts.builder()
                 .setId(String.valueOf(userdata.getUserId()))
@@ -40,7 +40,7 @@ public class Token {
 	}
 	
 	public String generateLoginToken(UserData userdata) {	
-		long currentTime = System.currentTimeMillis();
+	long currentTime = System.currentTimeMillis();
         System.out.println("generate token id:   " + userdata.getUserId());
         return Jwts.builder()
                 .setId(String.valueOf(userdata.getUserId()))
@@ -61,5 +61,4 @@ public class Token {
             throw new JwtException("Session time out");
         }
     }
-
 }

@@ -18,13 +18,12 @@ public @Data class BookDataDTO {
 	@NotBlank(message = "Author Name cannot be null")
 	private String author;
 	
-	
 	private double ratings;
 	
 	@Min(value = 1, message = "Book Price cannot be 0")
 	private double price;
 	
-	@Min(value = 0)
+	@Min(value = 0,  message = "Please Enter Valid Quantity")
 	private int quantity;
 	
 }	

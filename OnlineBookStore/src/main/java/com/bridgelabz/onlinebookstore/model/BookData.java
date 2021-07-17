@@ -1,12 +1,14 @@
 package com.bridgelabz.onlinebookstore.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -35,6 +37,9 @@ public @Data class BookData {
 	
 	public BookData(BookData bookdata) {}
 	
+	@OneToMany( mappedBy = "bookdata")
+	public List<BookCartData> bookCartData;
+	
 	public BookData(UUID bookId, BookDataDTO bookdatadto) {
 		this.bookId = bookId;
 		this.bookname = bookdatadto.getBookname();
@@ -59,6 +64,15 @@ public @Data class BookData {
 		this.quantity = quantity;
 		this.ratings = ratings;
 			
+	}
+	
+	public BookData(UUID bookId) {
+		this.bookId = bookId;
+	}
+
+	public void setAdded(boolean b) {
+		
+		
 	}
 	
 }

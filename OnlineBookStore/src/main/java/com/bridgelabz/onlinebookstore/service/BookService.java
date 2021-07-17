@@ -35,7 +35,7 @@ public class BookService implements IBookService {
 	@Override
 	public List<BookData> getAllBooks() {
 		List<BookData> booksList = bookdatarepo.findAll().stream()
-				                   .collect(Collectors.toList());
+				           .collect(Collectors.toList());
 		return booksList ;
 	}
 
@@ -49,27 +49,27 @@ public class BookService implements IBookService {
 	@Override
 	public List<BookData> displaybyHighertoLowerPrice() {
 		List<BookData> booksList = bookdatarepo.findAll().stream()
-                .sorted(Comparator.comparing(bookdata -> bookdata.price))
-                .collect(Collectors.toList());
+                                           .sorted(Comparator.comparing(bookdata -> bookdata.price))
+                                           .collect(Collectors.toList());
 		Collections.reverse(booksList);
-        return booksList;
+                return booksList;
 	}
 
 	@Override
 	public List<BookData> displaybyLowertoHigherPrice() {
 		List<BookData> booksList = bookdatarepo.findAll().stream()
-                .sorted(Comparator.comparing(bookdata -> bookdata.price))
-                .collect(Collectors.toList());
-        return booksList;
+                                           .sorted(Comparator.comparing(bookdata -> bookdata.price))
+                                           .collect(Collectors.toList());
+                return booksList;
 	}
 
 	@Override
 	public List<BookData> displayBooksbyDateOfArrival() {
 		List<BookData> booksList = bookdatarepo.findAll().stream()
-                .sorted(Comparator.comparing(bookdata -> bookdata.createdAt))
-                .collect(Collectors.toList());
+                                           .sorted(Comparator.comparing(bookdata -> bookdata.createdAt))
+                                           .collect(Collectors.toList());
 		Collections.reverse(booksList);
-        return booksList;
+                return booksList;
 	}
 }
 

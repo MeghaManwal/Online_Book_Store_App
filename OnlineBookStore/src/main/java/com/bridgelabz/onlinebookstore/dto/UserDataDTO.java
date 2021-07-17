@@ -19,7 +19,6 @@ public @Data class UserDataDTO {
 	@NotBlank(message = "Password cannot be null")
 	private String password;
 	
-
 	@Pattern(regexp = "^[+][0-9]{1,}[1-9]{1}[0-9]{9}$", message = "PhoneNumber is Invalid")
 	@NotBlank(message = "PhoneNumber cannot be null")
 	private String phoneNumber;

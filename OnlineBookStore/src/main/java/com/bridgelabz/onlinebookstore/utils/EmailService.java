@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class EmailService {
 
 	@Autowired
-    JavaMailSender javaMailSender;
+        JavaMailSender javaMailSender;
 	
 	public void sendMail(String body,String subject,String emailID) throws MessagingException {
 

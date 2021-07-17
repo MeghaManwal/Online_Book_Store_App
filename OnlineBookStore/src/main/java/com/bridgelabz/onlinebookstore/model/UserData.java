@@ -26,7 +26,7 @@ public @Data class UserData {
 	public String emailID;
 	public String password;
 	public boolean isVerified;
-    public LocalDateTime createdAt = LocalDateTime.now();
+        public LocalDateTime createdAt = LocalDateTime.now();
      
 	
 	public UserData(UserDataDTO userdto) {
@@ -46,7 +46,7 @@ public @Data class UserData {
 
 	public UserData() { }
 
-    public UserData(String fullName, String phoneNumber, String emailID, String password) {
+        public UserData(String fullName, String phoneNumber, String emailID, String password) {
 		this.fullName = fullName;
 		this.phoneNumber = phoneNumber;
 		this.emailID = emailID;
